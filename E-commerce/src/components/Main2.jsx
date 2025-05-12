@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/slices/cartSlice'; // ✅ import Redux action
+import Navbar from './Navbar';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 import { ShoppingCartIcon, StarIcon } from '@heroicons/react/24/solid';
 const Main2 = () => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const products = [
     {
       id: 1,
@@ -26,7 +34,15 @@ const Main2 = () => {
       image: 'https://images.unsplash.com/photo-1518671678551-911467efe539?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ymx1ZXRvb3RoJTIwc3BlYWtlcnxlbnwwfHwwfHx8MA%3D%3D'
     }
   ];
-  
+   const handleAddToCart = (product) => {
+      if (!isLoggedIn) {
+        localStorage.setItem('redirectAfterLogin', JSON.stringify(product));
+        navigate('/login');
+      } else {
+        dispatch(addToCart(product)); // ✅ Add to Redux cart
+        navigate('/checkout');        // ✅ Go to checkout (we’ll read cart from Redux there)
+      }
+    };
 
   const categories = ['Electronics', 'Clothing', 'Home', 'Books'];
 
@@ -79,7 +95,7 @@ const Main2 = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-bold text-indigo-600">${product.price.toFixed(2)}</span>
-                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition">
+                    <button onClick={()=>{handleAddToCart(product)}} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition">
                       <ShoppingCartIcon className="w-5 h-5 mr-2" />
                       Add to Cart
                     </button>

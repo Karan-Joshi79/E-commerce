@@ -12,7 +12,10 @@ import Checkout from './components/Checkout';
 import Payment from './components/Payment';
 import SearchResults from './components/SearchResults'; // Import the SearchResults component
 import Books from './components/Books'; // Import the Books component
-
+import Success from './components/Success';
+import Contact from './components/Contact';   // Import the Contact component
+import About from './components/About'; // Import the About component
+import Cart from './components/Cart';
 function App() {
   return (
     <AuthProvider>
@@ -35,6 +38,10 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/search" element={<SearchResults />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/cart" element={<Cart/>} />
             </Routes>
           </main>
           <Footer />

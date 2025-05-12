@@ -9,8 +9,8 @@ const Payment = () => {
 
   const handlePayment = (e) => {
     e.preventDefault();
-    alert('Payment successful!');
-    navigate('/'); // redirect to home or thank-you page
+   
+    navigate('/success'); // redirect to home or thank-you page
   };
 
   return (

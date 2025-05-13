@@ -1,6 +1,6 @@
 // src/pages/Checkout.jsx
 import React from 'react';
-
+import { clearCart } from '../redux/slices/cartSlice';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,13 +15,14 @@ const Checkout = () => {
   if (cartItems.length === 0) {
     navigate('/');
   }
+  clearCart();
 }, [cartItems, navigate]);
 
 if (cartItems.length === 0) return null;
 
 
   // Calculate total
-  const total = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const total = cartItems.reduce((acc, item) =>   item.price, 0);
 
   return (
     <>
